@@ -1,0 +1,23 @@
+@import './variables.css';
+@import './components/Navbar.css';
+@import './components/HomePage.css';
+@import './components/ProjectsPage.css';
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 90%;
+    margin: auto;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+} 
+
+/* Custom Button */
+.primary-button {
+    background-color: var(--primary-color);
+}
+/* --- END CUSTOM BUTTON --- */
