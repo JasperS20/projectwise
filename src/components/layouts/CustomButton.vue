@@ -36,7 +36,7 @@ a {
   padding: 0.75rem 1.5rem;
   font: inherit;
   background-color: var(--primary-color);
-  border: 1px solid #3a0061;
+  border: none;
   color: white;
   cursor: pointer;
   border-radius: 10px;
@@ -51,7 +51,7 @@ button:hover,
 button:active {
   transition: 0.3s all;
   background-color: var(--primary-color-hover);
-  border-color: #270041;
+  border: none;
 }
 
 .flat {
@@ -62,7 +62,7 @@ button:active {
 
 .outline {
   background-color: transparent;
-  border-color: #270041;
+  border: none;
   color: #270041;
 }
 

@@ -2,6 +2,8 @@
 @import './components/Navbar.css';
 @import './components/HomePage.css';
 @import './components/ProjectsPage.css';
+@import './components/AuthPage.css';
+
 * {
     padding: 0;
     margin: 0;
