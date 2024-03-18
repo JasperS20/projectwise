@@ -1,23 +1,39 @@
 <template>
-    <div class="card">
-        <section class="card-top">
-            <img src="../../assets/images/home-projectboard.jpg">
-        </section>
-        <section class="card-bottom">
-            <div>
-                <h4>Testname</h4>
-            </div>
-            <div class="card-details">
-                <h5>1</h5>
-                <h5>2</h5>
-                <h5>3</h5>
-                <h5>4</h5>
-            </div>
-        </section>
-    </div>
+    <a class="card-wrapper" :href="projectLink">
+        <div class="card" >
+            <section class="card-top">
+                <img src="../../assets/images/home-projectboard.jpg">
+            </section>
+            <section class="card-bottom">
+                <div>
+                    <h4>{{ name }}</h4>
+                </div>
+                <div class="card-details">
+                    <h5>{{ attandees }}</h5>
+                    <h5>{{ category }}</h5>
+                    <h5>{{ date }}</h5>
+                </div>
+            </section>
+        </div>
+    </a>
 </template>
 
+<script>
+export default {
+    props: ['id', 'name', 'projectImage', 'attendees', 'category', 'date'],
+    computed: {
+        projectLink() {
+            return this.$route.path + '/' + this.id;
+        }
+    },
+}
+</script>
+
 <style scoped>
+.card-wrapper {
+    text-decoration: none;
+    color: var(--text-color);
+}
 .card {
     background-color: var(--on-surface);
     width: fit-content;
