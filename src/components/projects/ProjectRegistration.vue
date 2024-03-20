@@ -21,7 +21,9 @@
                 </div>
                 <custom-button class="submit-btn">Save</custom-button>
             </form>
-            <custom-button class="close-btn" @click="closeModal">Close</custom-button>
+            <div class="btn-wrapper">
+                <custom-button class="close-btn" @click="closeModal">Close</custom-button>
+            </div>
         </custom-modal>
     </div>
 </template>
@@ -55,9 +57,9 @@ export default {
     border-radius: 10px;
     padding: 2rem 4rem;
     width: 60vw;
-    height: 80vh;
+    height: fit-content;
     background-color: var(--on-surface);
-    margin: auto;
+    margin: 0 auto 2rem auto;
     z-index: 2;
     box-shadow:  0px 1px 60px 0px rgba(166,46,195,0.4);
 }
@@ -76,8 +78,14 @@ export default {
     width: 100%;
 }
 
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
 .close-btn {
     margin-top: 2rem;
-    float: right;
+    justify-content: end;
 }
 </style>

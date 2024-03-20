@@ -3,7 +3,7 @@
         <div>
             <img src="../../assets/images/logo.svg" alt="Logo">
         </div>
-        <form @submit.prevent="">
+        <form @submit.prevent="submitForm">
             <div class="form-control">
                 <label for="email">Your email</label>
                 <input type="email" id="email" v-model.trim="email">
@@ -57,6 +57,33 @@ export default {
         }
     },
     methods: {
+        async submitForm() {
+            this.formIsValid = true;
+            if (this.email === '' || this.email.includes('@') || this.password.length < 6) {
+                this.formIsValid = false;
+                return;
+            }
+
+            try {
+                if (this.mode === 'login') {
+                    await this.dispatch('login', {
+                        email: this.email,
+                        password: this.password
+                    });
+                } else {
+                    await this.dispatch('login', {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password
+                    });
+                }
+                const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+                this.$router.replace(redirectUrl);
+            } catch (error) {
+                console.log('error');
+                this.error = error.message || 'Failed to authenticate!'
+            }
+        },
         switchAuthMode() {
             if (this.mode === 'login') {
                 this.mode = 'signup';
