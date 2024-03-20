@@ -9,7 +9,7 @@
                     <h4>{{ name }}</h4>
                 </div>
                 <div class="card-details">
-                    <h5>{{ attandees }}</h5>
+                    <h5>{{ attendees }} Attendees</h5>
                     <h5>{{ category }}</h5>
                     <h5>{{ date }}</h5>
                 </div>
@@ -53,8 +53,9 @@ img {
 
 .card-details {
     margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 2rem;
+    align-items: center;
 }
 </style>

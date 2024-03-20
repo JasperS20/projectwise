@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CustomButton from '../../components/layouts/CustomButton.vue';
+import CustomButton from '../../components/ui/CustomButton.vue';
 export default {
     components: {
         CustomButton

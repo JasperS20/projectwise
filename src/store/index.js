@@ -1,8 +1,10 @@
-const { createStore } = require("vuex");
+import { createStore } from "vuex";
+
+import projectsModel from './modules/projects/index.js';
 
 const store = createStore({
     modules: {
-        projects: projectsModule,
+        projects: projectsModel,
     }
 });
 

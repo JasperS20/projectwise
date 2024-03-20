@@ -1,7 +1,6 @@
 @import './variables.css';
 @import './components/Navbar.css';
 @import './components/HomePage.css';
-@import './components/ProjectsPage.css';
 @import './components/AuthPage.css';
 
 * {

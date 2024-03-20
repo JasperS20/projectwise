@@ -6,7 +6,6 @@ export default {
     namespaced: true,
     state() {
         return {
-            lastFetch: null,
             projects: [
                 {
                     id: '1',
