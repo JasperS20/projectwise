@@ -59,28 +59,27 @@ export default {
     methods: {
         async submitForm() {
             this.formIsValid = true;
-            if (this.email === '' || this.email.includes('@') || this.password.length < 6) {
+            if (this.email === '' || !this.email.includes('@') || this.password.length < 6) {
                 this.formIsValid = false;
                 return;
             }
 
             try {
                 if (this.mode === 'login') {
-                    await this.dispatch('login', {
+                    await this.$store.dispatch('login', {
                         email: this.email,
                         password: this.password
                     });
                 } else {
-                    await this.dispatch('login', {
-                        username: this.username,
+                    await this.$store.dispatch('signup', {
                         email: this.email,
+                        username: this.username,
                         password: this.password
                     });
                 }
-                const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+                const redirectUrl = '/' + (this.$route.query.redirect || 'home');
                 this.$router.replace(redirectUrl);
             } catch (error) {
-                console.log('error');
                 this.error = error.message || 'Failed to authenticate!'
             }
         },

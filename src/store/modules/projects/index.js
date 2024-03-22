@@ -6,6 +6,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            projectId: null,
             projects: [
                 {
                     id: '1',

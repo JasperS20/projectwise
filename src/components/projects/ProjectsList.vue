@@ -24,25 +24,13 @@ export default {
     },
     computed: {
         loadProjects() {
-            return this.$store.getters['projects/projects']
+            return this.$store.getters['projects/projects'];
         },
 
         hasProjects() {
-            return this.$store.getters['projects/hasProjects']
+            return this.$store.getters['projects/hasProjects'];
         }
     },
-    // created() {
-    //     this.loadProjects();
-    // },
-    // methods: {
-    //     async laodProjects() {
-    //         try {
-    //             await this.$store.dispatch('projects/loadProjects');
-    //         } catch (error) {
-    //             this.error = error.message || 'Failed to fetch!';
-    //         }
-    //     }
-    // }
 }
 </script>
 

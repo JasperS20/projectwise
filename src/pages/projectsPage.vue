@@ -43,7 +43,6 @@ export default {
 .boards-section {
     position: absolute;
     width: 90vw;
-    z-index: 0;
     margin: 2rem 0;
 }
 
