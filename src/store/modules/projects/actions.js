@@ -24,5 +24,34 @@ export default {
         context.commit('createProject', {
             ...projectData,
         })
+    },
+
+    async loadProjects(context, payload) {
+        const userId = context.rootGetters.userId;
+
+        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${userId}.json`);
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            const error = new Error(responseData.message || 'Failed to fetch!');
+            throw error;
+        }
+
+        const projects = [];
+
+        for (const key in responseData) {
+            const project = {
+                id: key,
+                name: responseData[key].name,
+                category: responseData[key].category,
+                banner: responseData[key].category,
+                team_members: responseData[key].team_members,
+                created_at: responseData[key].created_at
+            }
+            projects.push(project);
+        }
+
+        context.commit('setProjects', projects);
     }
 };

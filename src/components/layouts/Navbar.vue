@@ -10,7 +10,7 @@
                         <router-link to="/projects">My Projects</router-link>
                     </li>
                     <li>
-                        <router-link to="/invites">Invatations</router-link>
+                        <router-link to="/invitations">Invatations</router-link>
                     </li>
                     <li>
                         <router-link to="/account">My Account</router-link>
