@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="submitForm">
         <div class="form-control">
             <label for="email">Edit your email</label>
             <input type="email" id="email" :value="email">
@@ -15,6 +15,13 @@
 <script>
 import CustomButton from '@/components/ui/CustomButton.vue';
 export default {
+    data() {
+        return {
+            username: '',
+            email: '',
+            password: ''
+        }
+    },
     components: {
         CustomButton
     },
@@ -25,6 +32,19 @@ export default {
 
         password() {
             return this.$store.getters.password;
+        }
+    },
+    methods: {
+        async submitForm() {
+            try {
+                await this.$store.dispatch('editUser', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password
+                })
+            } catch (error) {
+                this.error = error.message || 'Failed to authenticate!';
+            }
         }
     }
 }

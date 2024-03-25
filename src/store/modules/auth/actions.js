@@ -1,6 +1,31 @@
 let timer;
 
 export default {
+    async editUser(context, data) {
+        const userId = context.rootGetters.userId;
+        const userData = {
+            username: data.username,
+            email: data.email,
+            password: data.password,
+        }
+
+        const token = context.rootGetters.token;
+
+        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/users/${userId}.json?auth=` + token, {
+            method: 'UPDATE',
+            body: JSON.stringify(userData)
+        });
+
+        if (!response.ok) {
+            console.log('error');
+        }
+
+        context.commit('registerUser', {
+            ...userData,
+            id: userId
+        });
+    },
+
     async registerUser(context, data) {
         const userId = context.rootGetters.userId;
         const userData = {
@@ -11,11 +36,9 @@ export default {
         const token = context.rootGetters.token;
 
         const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/users/${userId}.json?auth=` + token, {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify(userData)
         });
-
-        console.log(userData);
 
         if (!response.ok) {
             console.log('error');
@@ -49,6 +72,11 @@ export default {
             const saveUserData = await context.dispatch('registerUser', {
                 context,
                 ...payload
+            });
+
+            context.commit('setUserData', {
+                email: payload.email,
+                password: payload.password
             });
         } catch (error) {
             console.log('An error occurred during signup:', error);
