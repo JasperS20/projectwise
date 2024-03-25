@@ -7,5 +7,11 @@ export default {
 
     registerUser(state, payload) {
         state.users.push(payload);
+    },
+
+    setUserData(state, payload) {
+        state.username = payload.username;
+        state.email = payload.email;
+        state.password = payload.password;
     }
 };

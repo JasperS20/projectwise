@@ -3,6 +3,14 @@ export default {
         return state.userId;
     },
 
+    email(state) {
+        return state.email;
+    },
+
+    password(state) {
+        return state.password;
+    },
+
     token(state) {
         return state.token;
     },

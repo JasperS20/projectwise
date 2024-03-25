@@ -23,7 +23,7 @@ export default {
     props: ['id', 'name', 'projectImage', 'attendees', 'category', 'date'],
     computed: {
         projectLink() {
-            return 'projects/' + this.id;
+            return this.$route.path + '/' + this.id;
         }
     },
 }

@@ -5,7 +5,7 @@ export default {
         const userId = context.rootGetters.userId;
         const userData = {
             email: data.email,
-            username: data.username
+            username: data.username,
         }
 
         const token = context.rootGetters.token;
@@ -14,6 +14,8 @@ export default {
             method: 'PUT',
             body: JSON.stringify(userData)
         });
+
+        console.log(userData);
 
         if (!response.ok) {
             console.log('error');
@@ -25,8 +27,12 @@ export default {
         });
     },
 
-
     async login(context, payload) {
+        context.commit('setUserData', {
+            email: payload.email,
+            password: payload.password
+        });
+
         return context.dispatch('auth', {
             ...payload,
             mode: 'login',

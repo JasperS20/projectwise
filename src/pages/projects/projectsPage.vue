@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CustomButton from '../components/ui/CustomButton.vue';
+import CustomButton from '../../components/ui/CustomButton.vue';
 import ProjectsList from '@/components/projects/ProjectsList.vue';
 import ProjectRegistration from '@/components/projects/ProjectRegistration.vue';
 export default {
