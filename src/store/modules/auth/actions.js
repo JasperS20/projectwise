@@ -1,31 +1,6 @@
 let timer;
 
 export default {
-    async editUser(context, data) {
-        const userId = context.rootGetters.userId;
-        const userData = {
-            username: data.username,
-            email: data.email,
-            password: data.password,
-        }
-
-        const token = context.rootGetters.token;
-
-        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/users/${userId}.json?auth=` + token, {
-            method: 'UPDATE',
-            body: JSON.stringify(userData)
-        });
-
-        if (!response.ok) {
-            console.log('error');
-        }
-
-        context.commit('registerUser', {
-            ...userData,
-            id: userId
-        });
-    },
-
     async registerUser(context, data) {
         const userId = context.rootGetters.userId;
         const userData = {
@@ -47,6 +22,13 @@ export default {
         context.commit('registerUser', {
             ...userData,
             id: userId
+        });
+    },
+
+    async editUser(context, payload) {
+        return context.dispatch('auth', {
+            ...payload,
+            mode: 'edit'
         });
     },
 
@@ -92,17 +74,25 @@ export default {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDT8Ckl6IPDgO1CQBKEXcJYKNt_1p7AXfw';
         }
 
+        if (mode === 'edit') {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDT8Ckl6IPDgO1CQBKEXcJYKNt_1p7AXfw';
+        }
+
+        console.log('test');
+
         const response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify({
+                // idToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhNjI1OTZmNTJmNTJlZDQ0MDQ5Mzk2YmU3ZGYzNGQyYzY0ZjQ1M2UiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJvamVjdHdpc2UtNDVlY2EiLCJhdWQiOiJwcm9qZWN0d2lzZS00NWVjYSIsImF1dGhfdGltZSI6MTcxMTU0NDEwNiwidXNlcl9pZCI6InA3UlVHV2c0em5Xc05TWlY4WGpabVhMdUNjRTMiLCJzdWIiOiJwN1JVR1dnNHpuV3NOU1pWOFhqWm1YTHVDY0UzIiwiaWF0IjoxNzExNTQ0MTA2LCJleHAiOjE3MTE1NDc3MDYsImVtYWlsIjoiamFzcGVyLnNhbXNvbkBrcG5tYWlsLm5sIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImphc3Blci5zYW1zb25Aa3BubWFpbC5ubCJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.OHDK1QGTkYWmPYOWOj6k54ugotNvuTO8sLr2cOOrVL4kqkDghm7feTXoYNDdGDOWTacNfzyAdG6z6pOrKwGTZKTfNmpu9gZrufHCBJNwKCDcUGM2VTKk82PnwfW185nJedU5ib4riXPZk6eke7ZieWjzEN5BEcS6r1JM9Om0Fz9BVpiSuQmR0EA7NPiIbDPy_StLciHKmui3pi-OuePVc_lTiCFi81GCatogSf5L_1Rp_Z3hcGSiWCtQGc6lcRcW6NrNmfTTDENU60FdAZAzXElzV0yWpe5otrF8F1nqcM2ZZ0UO3pwGOxkZfuUFaEW9hO9v6uwVhmc2Sd5ham7wSQ",
                 username: payload.username,
                 email: payload.email,
                 password: payload.password,
-                returnSecureToken: true
+                returnSecureToken: true,
             })
         });
 
         const responseData = await response.json();
+        console.log(responseData);
 
         if (!response.ok) {
             const error = new Error(responseData.message || 'Failed to authenticate');
