@@ -13,5 +13,11 @@ export default {
         state.username = payload.username;
         state.email = payload.email;
         state.password = payload.password;
+    },
+
+    changeUserEmail(state, payload) {
+        state.token = payload.token;
+        state.email = payload.email;
+        state.didLogout = false;
     }
 };

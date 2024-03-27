@@ -23,7 +23,8 @@ export default {
     props: ['id', 'name', 'projectImage', 'attendees', 'category', 'date'],
     computed: {
         projectLink() {
-            return this.$route.path + '/' + this.id;
+            const redirectUrl = this.$route.path + '/' + this.id;
+            this.$router.replace(redirectUrl);
         }
     },
 }

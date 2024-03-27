@@ -2,11 +2,7 @@
     <form @submit.prevent="submitForm">
         <div class="form-control">
             <label for="email">Edit your email</label>
-            <input type="email" id="email" :value="email">
-        </div>
-        <div class="form-control">
-            <label for="password">Edit your password</label>
-            <input type="password" id="passord" :value="password">
+            <input type="email" id="email" v-model.trim="editedEmail">
         </div>
         <custom-button>Save Changes</custom-button>
     </form>
@@ -17,9 +13,7 @@ import CustomButton from '@/components/ui/CustomButton.vue';
 export default {
     data() {
         return {
-            username: '',
-            email: '',
-            password: ''
+            editedEmail: '',
         }
     },
     components: {
@@ -29,18 +23,12 @@ export default {
         email() {
             return this.$store.getters.email;
         },
-
-        password() {
-            return this.$store.getters.password;
-        }
     },
     methods: {
         async submitForm() {
             try {
-                await this.$store.dispatch('editUser', {
-                    username: this.username,
-                    email: this.email,
-                    password: this.password
+                await this.$store.dispatch('editUserEmail', {
+                    email: this.editedEmail,
                 })
             } catch (error) {
                 this.error = error.message || 'Failed to authenticate!';

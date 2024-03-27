@@ -1,0 +1,17 @@
+.boards-section {
+    margin: 2rem 0;
+}
+
+.section-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
