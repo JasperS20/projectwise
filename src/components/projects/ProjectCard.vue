@@ -1,30 +1,35 @@
 <template>
-    <a class="card-wrapper" :href="projectLink">
-        <div class="card" >
-            <section class="card-top">
-                <img src="../../assets/images/home-projectboard.jpg">
-            </section>
-            <section class="card-bottom">
-                <div>
-                    <h4>{{ name }}</h4>
-                </div>
-                <div class="card-details">
-                    <h5>{{ attendees }} Attendees</h5>
-                    <h5>{{ category }}</h5>
-                    <h5>{{ date }}</h5>
-                </div>
-            </section>
-        </div>
-    </a>
+    <div class="card" >
+        <section class="card-top">
+            <img src="../../assets/images/home-projectboard.jpg">
+        </section>
+        <section class="card-bottom">
+            <div>
+                <h4>{{ name }}</h4>
+            </div>
+            <div class="card-details">
+                <h5>{{ attendees }} Attendees</h5>
+                <h5>{{ category }}</h5>
+                <h5>{{ date }}</h5>
+            </div>
+            <div class="action-buttons">
+                <custom-button link :to="projectLink">View</custom-button>
+                <custom-button link :to="projectLink" mode="outline">Delete</custom-button>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
+import CustomButton from '../ui/CustomButton.vue';
 export default {
+    components: {
+        CustomButton
+    },
     props: ['id', 'name', 'projectImage', 'attendees', 'category', 'date'],
     computed: {
         projectLink() {
-            const redirectUrl = this.$route.path + '/' + this.id;
-            this.$router.replace(redirectUrl);
+            return this.$route.path + '/' + this.id;
         }
     },
 }
@@ -58,5 +63,11 @@ img {
     grid-template-columns: 1fr 1fr 1fr;
     padding-bottom: 2rem;
     align-items: center;
+}
+
+.action-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 </style>

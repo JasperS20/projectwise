@@ -74,6 +74,10 @@ export default {
                     team_members: [this.team_members],
                     created_at: new Date().getFullYear()
                 });
+                await this.$store.dispatch('invitations/sendInvite', {
+                    name: this.team_members,
+                    date: new Date().getTime()
+                });
                 const redirectUrl = '/projects';
                 this.$router.replace(redirectUrl);
             } catch (error) {

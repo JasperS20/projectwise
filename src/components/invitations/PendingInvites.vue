@@ -3,11 +3,10 @@
         <invitation-card class="card">
             <div class="details">
                 <img>
-                <h3>Username</h3>
+                <h3>User1234</h3>
             </div>
             <div class="actions">
-                <h3>Yes</h3>
-                <h3>No</h3>
+                <h3>Pending...</h3>
             </div>
         </invitation-card>
     </div>

@@ -66,10 +66,18 @@ button:active {
   color: #270041;
 }
 
+.delete {
+  background-color: rgb(235, 66, 66);
+  border: none;
+  color: #270041;
+}
+
 .flat:hover,
 .flat:active,
 .outline:hover,
-.outline:active {
+.outline:active,
+.delete:active,
+.delete:hover {
   background-color: #edd2ff;
 }
 </style>
