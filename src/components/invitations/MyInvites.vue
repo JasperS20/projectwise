@@ -1,12 +1,12 @@
 <template>
     <div>
         <ul>
-            <invitation-card v-for="invitation in filteredInvites" class="card">
+            <invitation-card v-for="invitation in filteredInvites" :key="invitation.id" class="card">
                 <div class="details">
                     <h3>{{ invitation.requestedUser }}</h3>
                 </div>
                 <div class="actions">
-                    <custom-button @click="acceptInvite">Accept</custom-button>
+                    <custom-button @click="acceptInvite(invitation.id)">Accept</custom-button>
                     <custom-button mode="outline" @click="declineInvitation">Decline</custom-button>
                 </div>
             </invitation-card>
@@ -36,16 +36,22 @@ export default {
         },
 
         filteredInvites() {
-            return this.allInvites.filter(invitation => invitation.recipientUser === this.getUserEmail);
+            const filteredInvites = this.allInvites.filter(invitation => invitation.recipientUser === this.getUserEmail);
+            console.log(filteredInvites);
+            return filteredInvites;
         }
     },
     created() {
         this.loadInvites();
     },
     methods: {
-        acceptInvite() {
-            console.log('Accept Invitation');
-        },
+        async acceptInvite(invitationId) {
+            console.log('Accept Invitation', invitationId);
+            await this.$store.dispatch('invitations/acceptInvite', {
+                invitationId: invitationId,
+                isAccepted: true
+            });
+        },  
         declineInvitation() {
             console.log('Decline Invitation');
         },

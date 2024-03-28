@@ -47,4 +47,30 @@ export default {
 
         context.commit('setSendInvitations', invitations);
     },
+
+    async acceptInvite(context, payload) {
+        const token = context.rootGetters.token;
+
+        const invitationData = {
+            isAccepted: payload.isAccepted
+        }
+
+        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invitations/sendInvites/${payload.invitationId}.json?auth=` + token, {
+            method: 'PATCH',
+            body: JSON.stringify(invitationData)
+        });
+
+        if (!response.ok) {
+            console.log('ERRORRR');
+        }
+
+        context.commit('acceptSendInvitation', {
+            ...invitationData,
+            id: payload.invitationId
+        });
+    },
+
+    async declineInvite() {
+
+    }
 };

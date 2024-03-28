@@ -5,5 +5,9 @@ export default {
 
     setSendInvitations(state, payload) {
         state.sendInvitations = payload;
+    },
+
+    acceptSendInvitation(state, payload) {
+        state.sendInvitations.isAccepted = payload.isAccepted;
     }
 };
