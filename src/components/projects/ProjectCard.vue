@@ -14,7 +14,7 @@
             </div>
             <div class="action-buttons">
                 <custom-button link :to="projectLink">View</custom-button>
-                <custom-button link :to="projectLink" mode="outline">Delete</custom-button>
+                <custom-button mode="outline" @click="deleteProject">Delete</custom-button>
             </div>
         </section>
     </div>
@@ -32,6 +32,13 @@ export default {
             return this.$route.path + '/' + this.id;
         }
     },
+    methods: {
+        async deleteProject() {
+            await this.$store.dispatch('projects/deleteProject', {
+                name: this.name
+            });
+        }
+    }
 }
 </script>
 

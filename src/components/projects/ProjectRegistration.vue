@@ -37,7 +37,7 @@ export default {
             name: '',
             category: '',
             banner: '',
-            team_members: [''],
+            team_members: '',
             formIsValid: true
         }
     },
@@ -49,6 +49,11 @@ export default {
         isOpen: {
             type: Boolean,
             default: false
+        }
+    },
+    computed: {
+        getUserMail() {
+            return this.$store.getters.email;
         }
     },
     methods: {
@@ -75,8 +80,10 @@ export default {
                     created_at: new Date().getFullYear()
                 });
                 await this.$store.dispatch('invitations/sendInvite', {
-                    name: this.team_members,
-                    date: new Date().getTime()
+                    requestedUser: this.getUserMail,
+                    recipientUser: this.team_members,
+                    boardName: this.name,
+                    date: new Date().getDate() + '/' + new Date().getMonth()
                 });
                 const redirectUrl = '/projects';
                 this.$router.replace(redirectUrl);

@@ -1,26 +1,50 @@
 export default {
     async sendInvite(context, payload) {
-        console.log('send Invite');
         const userId = context.rootGetters.userId;
         const token = context.rootGetters.token;
 
         const inviteData = {
-            user: payload.user,
+            requestedUser: payload.requestedUser,
+            requestedUserId: userId,
+            recipientUser: payload.recipientUser,
             isAccepted: false,
             date: payload.date
         }
 
-        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invites/${userId}/sendInvites.json?auth=` + token, {
-            method: 'PUT',
+        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invitations/sendInvites.json?auth=` + token, {
+            method: 'POST',
             body: JSON.stringify(inviteData)
         });
 
-        context.commit('sendInvite')
+        context.commit('sendInvite', {
+            ...inviteData
+        });
     },
-    async loadInvites(context, payload) {
-        console.log('Loading Invites...');
-        const userId = context.rootGetters.userId;
 
-        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invites/${userId}/myinvites.json?auth=`);
-    }
+    async loadSendInvites(context, payload) {
+        const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invitations/sendInvites.json?auth=`);
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            const error = new Error(responseData.message || 'Failed during Fetching!');
+            throw error;
+        }
+
+        const invitations = [];
+
+        for (const key in responseData) {
+            const invitation = {
+                id: key,
+                requestedUser: responseData[key].requestedUser,
+                requestedUserId: responseData[key].requestedUserId,
+                recipientUser: responseData[key].recipientUser,
+                isAccepted: responseData[key].isAccepted,
+                date: responseData[key].date
+            }
+            invitations.push(invitation);
+        }
+
+        context.commit('setSendInvitations', invitations);
+    },
 };

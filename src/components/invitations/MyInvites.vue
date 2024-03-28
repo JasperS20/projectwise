@@ -1,15 +1,16 @@
 <template>
     <div>
-        <invitation-card class="card">
-            <div class="details">
-                <img>
-                <h3>Username</h3>
-            </div>
-            <div class="actions">
-                <custom-button @click="acceptInvite">Accept</custom-button>
-                <custom-button mode="outline" @click="declineInvitation">Decline</custom-button>
-            </div>
-        </invitation-card>
+        <ul>
+            <invitation-card v-for="invitation in filteredInvites" class="card">
+                <div class="details">
+                    <h3>{{ invitation.requestedUser }}</h3>
+                </div>
+                <div class="actions">
+                    <custom-button @click="acceptInvite">Accept</custom-button>
+                    <custom-button mode="outline" @click="declineInvitation">Decline</custom-button>
+                </div>
+            </invitation-card>
+        </ul>
     </div>
 </template>
 
@@ -21,12 +22,35 @@ export default {
         InvitationCard,
         CustomButton
     },
+    computed: {
+        getUserEmail() {
+            return this.$store.getters.email;
+        },
+
+        hasInvites() {
+            return this.$store.getters['invitations/hasSendInvites'];
+        },
+
+        allInvites() {
+            return this.$store.getters['invitations/sendInvitations'];
+        },
+
+        filteredInvites() {
+            return this.allInvites.filter(invitation => invitation.recipientUser === this.getUserEmail);
+        }
+    },
+    created() {
+        this.loadInvites();
+    },
     methods: {
         acceptInvite() {
             console.log('Accept Invitation');
         },
         declineInvitation() {
             console.log('Decline Invitation');
+        },
+        async loadInvites() {
+            await this.$store.dispatch('invitations/loadSendInvites');
         }
     }
 }

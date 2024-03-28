@@ -29,11 +29,9 @@ export default {
     methods: {
         myInvites() {
             this.showMyInvites = true;
-            console.log('My Invites');
         },
         pendingInvites() {
             this.showMyInvites = false;
-            console.log('Pending Invites');
         }
     }
 }

@@ -1,7 +1,6 @@
 export default {
     async createProject(context, data) {
         const userId = context.rootGetters.userId;
-        //const projectId = context.rootGetters.projectId;
         const projectData = {
             name: data.name,
             category: data.category,
@@ -53,5 +52,29 @@ export default {
         }
 
         context.commit('setProjects', projects);
+    },
+
+    async deleteProject(context, payload) {
+        const userId = context.rootGetters.userId;
+        const token = context.rootGetters.token;
+
+        const projectName = payload.name;
+
+        try {
+            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${userId}/${projectName}.json?auth=` + token, {
+            method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                console.log('Failed deleting project');
+            }
+
+            context.commit('deleteProject', {
+                ...projectName
+            });
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 };

@@ -3,7 +3,15 @@ export default {
         return state.invitations;
     },
 
-    invitations(state) {
+    sendInvitations(state) {
+        return state.sendInvitations;
+    },
+
+    hasInvitations(state) {
         return state.invitations && state.invitations.length > 0;
+    },
+
+    hasSendInvites(state) {
+        return state.sendInvitations && state.sendInvitations.length > 0;
     }
 };
