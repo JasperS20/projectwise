@@ -54,6 +54,10 @@ export default {
     computed: {
         getUserMail() {
             return this.$store.getters.email;
+        },
+
+        getProjects() {
+            return this.$store.getters['projects/projects'];
         }
     },
     methods: {
@@ -79,14 +83,20 @@ export default {
                     team_members: this.team_members,
                     created_at: new Date().getFullYear()
                 });
-                await this.$store.dispatch('invitations/sendInvite', {
-                    requestedUser: this.getUserMail,
-                    recipientUser: this.team_members,
-                    boardName: this.name,
-                    date: new Date().getDate() + '/' + new Date().getMonth()
-                });
-                const redirectUrl = '/projects';
-                this.$router.replace(redirectUrl);
+
+                const project = this.getProjects.filter(project => project.name === this.name);
+                const projectId = project[0].id;
+
+                if (this.team_members.trim() !== '') {
+                    await this.$store.dispatch('invitations/sendInvite', {
+                        projectId: projectId,
+                        requestedUser: this.getUserMail,
+                        recipientUser: this.team_members,
+                        boardName: this.name,
+                        date: new Date().getDate() + '/' + new Date().getMonth()
+                    });
+                }
+                this.closeModal();
             } catch (error) {
                 console.log(error);
             }

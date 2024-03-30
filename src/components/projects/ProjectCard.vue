@@ -35,7 +35,7 @@ export default {
     methods: {
         async deleteProject() {
             await this.$store.dispatch('projects/deleteProject', {
-                name: this.name
+                id: this.id
             });
         }
     }

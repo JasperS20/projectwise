@@ -5,7 +5,7 @@ export default {
             name: data.name,
             category: data.category,
             banner: data.banner,
-            team_members: [userId, data.team_members],
+            team_members: [userId],
             created_at: data.created_at
         }
 
@@ -20,8 +20,11 @@ export default {
             console.log('error');
         }
 
+        const responseData = await response.json();
+
         context.commit('createProject', {
             ...projectData,
+            id: responseData.name
         })
     },
 
@@ -58,10 +61,10 @@ export default {
         const userId = context.rootGetters.userId;
         const token = context.rootGetters.token;
 
-        const projectName = payload.name;
+        const projectId = payload.id;
 
         try {
-            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects.json?auth=` + token, {
+            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}.json?auth=` + token, {
             method: 'DELETE',
             });
 
@@ -70,7 +73,7 @@ export default {
             }
 
             context.commit('deleteProject', {
-                ...projectName
+                ...projectId
             });
         } catch (error) {
             console.log(error);

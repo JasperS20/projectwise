@@ -4,6 +4,7 @@ export default {
         const token = context.rootGetters.token;
 
         const inviteData = {
+            projectId: payload.projectId,
             requestedUser: payload.requestedUser,
             requestedUserId: userId,
             recipientUser: payload.recipientUser,
@@ -36,6 +37,7 @@ export default {
         for (const key in responseData) {
             const invitation = {
                 id: key,
+                projectId: responseData[key].projectId,
                 requestedUser: responseData[key].requestedUser,
                 requestedUserId: responseData[key].requestedUserId,
                 recipientUser: responseData[key].recipientUser,
@@ -50,6 +52,8 @@ export default {
 
     async acceptInvite(context, payload) {
         const token = context.rootGetters.token;
+        const userId = context.rootGetters.userId;
+        const projectId = payload.projectId;
 
         const invitationData = {
             isAccepted: payload.isAccepted
@@ -62,6 +66,15 @@ export default {
 
         if (!response.ok) {
             console.log('ERRORRR');
+        }
+
+        const secondResponse = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/team_members/${userId}.json?auth=` + token, {
+            method: 'PUT',
+            body: JSON.stringify(userId)
+        });
+
+        if (!secondResponse.ok) {
+            console.log('Error while adding user to existing project');
         }
 
         context.commit('acceptSendInvitation', {

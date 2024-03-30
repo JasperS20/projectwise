@@ -1,16 +1,17 @@
 <template>
     <div>
-        <ul>
+        <ul v-if="hasInvites">
             <invitation-card v-for="invitation in filteredInvites" :key="invitation.id" class="card">
                 <div class="details">
                     <h3>{{ invitation.requestedUser }}</h3>
                 </div>
                 <div class="actions">
-                    <custom-button @click="acceptInvite(invitation.id)">Accept</custom-button>
+                    <custom-button @click="acceptInvite(invitation.id, invitation.projectId)">Accept</custom-button>
                     <custom-button mode="outline" @click="declineInvitation">Decline</custom-button>
                 </div>
             </invitation-card>
         </ul>
+        <p v-else>You are not invited for any project</p>
     </div>
 </template>
 
@@ -45,9 +46,10 @@ export default {
         this.loadInvites();
     },
     methods: {
-        async acceptInvite(invitationId) {
+        async acceptInvite(invitationId, projectId) {
             console.log('Accept Invitation', invitationId);
             await this.$store.dispatch('invitations/acceptInvite', {
+                projectId: projectId,
                 invitationId: invitationId,
                 isAccepted: true
             });

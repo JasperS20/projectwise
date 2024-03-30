@@ -40,7 +40,10 @@ export default {
         },
 
         filteredProjects() {
-            return this.showProjects.filter(project => project.team_members.includes(this.getUserId));
+            return this.showProjects.filter(project => {
+                const team_members = project.team_members;
+                return Object.keys(team_members).some(key => team_members[key] === this.getUserId);
+            })
         }
     },
     created() {
