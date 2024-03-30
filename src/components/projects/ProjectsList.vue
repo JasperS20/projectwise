@@ -2,7 +2,7 @@
     <div>
         <ul v-if="hasProjects">
             <project-card
-            v-for="project in showProjects"
+            v-for="project in filteredProjects"
             :key="project.id"
             :id="project.id"
             :name="project.name"
@@ -23,12 +23,24 @@ export default {
         ProjectCard
     },
     computed: {
+        getUserMail() {
+            return this.$store.getters.email;
+        },
+
+        getUserId() {
+            return this.$store.getters.userId;
+        },
+
         hasProjects() {
             return this.$store.getters['projects/hasProjects'];
         },
 
         showProjects() {
             return this.$store.getters['projects/projects'];
+        },
+
+        filteredProjects() {
+            return this.showProjects.filter(project => project.team_members.includes(this.getUserId));
         }
     },
     created() {

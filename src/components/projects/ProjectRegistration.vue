@@ -76,7 +76,7 @@ export default {
                     name: this.name,
                     category: this.category,
                     banner: this.banner,
-                    team_members: [this.team_members],
+                    team_members: this.team_members,
                     created_at: new Date().getFullYear()
                 });
                 await this.$store.dispatch('invitations/sendInvite', {
