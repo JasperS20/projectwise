@@ -65,7 +65,7 @@ export default {
 
         try {
             const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}.json?auth=` + token, {
-            method: 'DELETE',
+                method: 'DELETE',
             });
 
             if (!response.ok) {
@@ -78,6 +78,33 @@ export default {
         } catch (error) {
             console.log(error);
             throw error;
+        }
+    },
+
+    async addTask(context, payload) {
+        const token = context.rootGetters.token;
+        const projectId = payload.projectId;
+
+        const taskData = {
+            name: payload.name,
+            description: payload.description,
+            priority: payload.priority,
+            status: 'todo'
+        }
+
+        console.log(payload);
+
+        try {
+            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${payload.priority}.json?auth=` + token, {
+                method: 'PATCH',
+                body: JSON.stringify(taskData)
+            });
+
+            if (!response.ok) {
+                console.log('error');
+            }
+        } catch(error) {
+            console.log(error);
         }
     }
 };

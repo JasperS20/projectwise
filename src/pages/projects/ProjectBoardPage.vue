@@ -1,7 +1,10 @@
 <template>
     <div class="project-grid">
         <div class="project-grid-item">
-            <scrum-list title="TODO"></scrum-list>
+            <scrum-list title="TODO">
+                <task-card></task-card>
+                <add-task @click="openModal"></add-task>
+            </scrum-list>
         </div>
         <div class="project-grid-item">
             <scrum-list title="In Progress"></scrum-list>
@@ -10,21 +13,54 @@
             <scrum-list title="Done"></scrum-list>
         </div>
     </div>
+    <task-registration v-if="modalOpen" :is-open="modalOpen" @close="closeModal"></task-registration>
 </template>
 
 <script>
 import ScrumList from '../../components/projectboard/ScrumList.vue';
+import AddTask from '../../components/projectboard/AddTask.vue';
+import TaskRegistration from '../../components/projectboard/TaskRegistration.vue';
+import TaskCard from '../../components/projectboard/TaskCard.vue';
 export default {
     components: {
-        ScrumList
+        ScrumList,
+        AddTask,
+        TaskRegistration,
+        TaskCard
+    },
+    data() {
+        return {
+            modalOpen: false
+        };
+    },
+    computed: {
+        loadProjects() {
+            return this.$store.getters['projects/loadProjects'];
+        },
+
+        todoTasks() {
+            return this.loadProjects.filter();
+        }
+    },
+    methods: {
+        openModal() {
+            this.modalOpen = true;
+        },
+
+        closeModal() {
+            this.modalOpen = false;
+        },
     }
+
 }
 </script>
 
 <style scoped>
 .project-grid {
+    position: absolute;
     display: grid;
-    width: 100%;
+    width: 90%;
+    margin: auto;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 1rem;
 }
