@@ -2,7 +2,7 @@
     <div class="project-grid">
         <div class="project-grid-item">
             <scrum-list title="TODO">
-                <task-card v-for="task in todoTasks"
+                <task-card v-for="task in todoTasks" v-if="todoTasks"
                     :key="task.id"
                     :name="task.name"
                     :priority="task.priority"
@@ -12,10 +12,24 @@
             </scrum-list>
         </div>
         <div class="project-grid-item">
-            <scrum-list title="In Progress"></scrum-list>
+            <scrum-list title="In Progress">
+                <task-card v-for="task in inProgressTasks" v-if="inProgressTasks"
+                    :key="task.id"
+                    :name="task.name"
+                    :priority="task.priority"
+                    :description="task.description"
+                ></task-card>
+            </scrum-list>
         </div>
         <div class="project-grid-item">
-            <scrum-list title="Done"></scrum-list>
+            <scrum-list title="Done">
+                <task-card v-for="task in doneTasks" v-if="doneTasks"
+                    :key="task.id"
+                    :name="task.name"
+                    :priority="task.priority"
+                    :description="task.description"
+                ></task-card>
+            </scrum-list>
         </div>
     </div>
     <task-registration v-if="modalOpen" :is-open="modalOpen" @close="closeModal"></task-registration>
@@ -45,9 +59,18 @@ export default {
         },
 
         todoTasks() {
-            const todoTasks = this.loadProjects.filter(project => project.id === this.id);
-            console.log(todoTasks[0].tasks['todo']);  
-            return Object.keys(tasks).some(key => team_members[key] === this.getUserId);
+            const project = this.loadProjects.find(project => project.id === this.id);  
+            return project.tasks.todo;
+        },
+
+        inProgressTasks() {
+            const project = this.loadProjects.find(project => project.id === this.id);
+            return project.tasks.progress;
+        },
+
+        doneTasks() {
+            const project = this.loadProjects.find(project => project.id === this.id);
+            return project.tasks.done;
         }
     },
     created() {

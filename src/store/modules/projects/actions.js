@@ -95,7 +95,7 @@ export default {
 
         try {
             const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}.json?auth=` + token, {
-                method: 'PATCH',
+                method: 'POST',
                 body: JSON.stringify(taskData)
             });
 
@@ -105,5 +105,5 @@ export default {
         } catch(error) {
             console.log(error);
         }
-    }
+    },
 };
