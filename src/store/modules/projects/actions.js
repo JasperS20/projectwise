@@ -29,8 +29,6 @@ export default {
     },
 
     async loadProjects(context, payload) {
-        const userId = context.rootGetters.userId;
-
         const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects.json`);
 
         const responseData = await response.json();
@@ -49,6 +47,7 @@ export default {
                 category: responseData[key].category,
                 banner: responseData[key].category,
                 team_members: responseData[key].team_members,
+                tasks: responseData[key].tasks,
                 created_at: responseData[key].created_at
             }
             projects.push(project);
@@ -84,18 +83,18 @@ export default {
     async addTask(context, payload) {
         const token = context.rootGetters.token;
         const projectId = payload.projectId;
+        const taskStatus = payload.status;
 
         const taskData = {
             name: payload.name,
             description: payload.description,
             priority: payload.priority,
-            status: 'todo'
         }
 
         console.log(payload);
 
         try {
-            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${payload.priority}.json?auth=` + token, {
+            const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}.json?auth=` + token, {
                 method: 'PATCH',
                 body: JSON.stringify(taskData)
             });

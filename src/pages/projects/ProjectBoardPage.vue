@@ -2,7 +2,12 @@
     <div class="project-grid">
         <div class="project-grid-item">
             <scrum-list title="TODO">
-                <task-card></task-card>
+                <task-card v-for="task in todoTasks"
+                    :key="task.id"
+                    :name="task.name"
+                    :priority="task.priority"
+                    :description="task.description"
+                ></task-card>
                 <add-task @click="openModal"></add-task>
             </scrum-list>
         </div>
@@ -30,17 +35,23 @@ export default {
     },
     data() {
         return {
+            id: this.$route.params.id,
             modalOpen: false
         };
     },
     computed: {
         loadProjects() {
-            return this.$store.getters['projects/loadProjects'];
+            return this.$store.getters['projects/projects'];
         },
 
         todoTasks() {
-            return this.loadProjects.filter();
+            const todoTasks = this.loadProjects.filter(project => project.id === this.id);
+            console.log(todoTasks[0].tasks['todo']);  
+            return Object.keys(tasks).some(key => team_members[key] === this.getUserId);
         }
+    },
+    created() {
+        this.$store.dispatch('projects/loadProjects');
     },
     methods: {
         openModal() {
@@ -50,7 +61,7 @@ export default {
         closeModal() {
             this.modalOpen = false;
         },
-    }
+    },
 
 }
 </script>

@@ -1,14 +1,33 @@
 <template>
     <div class="card">
         <div class="card-top">
-            <p class="title">Test kaart</p>
-            <p class="priority">Medium</p>
+            <p class="title">{{ name }}</p>
+            <p class="priority">{{ priority }}</p>
         </div>
         <div class="card-bottom">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam corporis nam consectetur voluptas quod quia molestiae, cupiditate nihil recusandae rerum, voluptatum neque natus enim dolor dolorem deserunt expedita, accusamus nemo.</p>
+            <p>{{ description }}</p>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        name: {
+            type: String,
+            required: true,
+        },
+        priority: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true,
+        }
+    }
+}
+</script>
 
 
 <style scoped>

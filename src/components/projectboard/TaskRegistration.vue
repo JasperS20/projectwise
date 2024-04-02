@@ -19,6 +19,14 @@
                         <option value="high">High</option>
                     </select>
                 </div>
+                <div class="form-control">
+                    <label for="status">Status</label>
+                    <select class="input" id="status" v-model.trim="status">
+                        <option value="todo">Todo</option>
+                        <option value="progress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
                 <custom-button class="submit-btn">Create new task</custom-button>
             </form>
             <div class="btn-wrapper">
@@ -38,6 +46,7 @@ export default {
             name: '',
             description: '',
             priority: '',
+            status: '',
             formIsValid: true
         }
     },
@@ -62,7 +71,8 @@ export default {
                     projectId: this.id,
                     name: this.name,
                     description: this.description,
-                    priority: this.priority
+                    priority: this.priority,
+                    status: this.status
                 });
                 this.closeModal();
             } catch (error) {
