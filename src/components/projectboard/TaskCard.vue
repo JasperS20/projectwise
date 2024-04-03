@@ -7,11 +7,25 @@
         <div class="card-bottom">
             <p>{{ description }}</p>
         </div>
+        <div class="task-options">
+            <custom-button>Delete</custom-button>
+            <form>
+                <select class="input" name="status" id="status">
+                    <option value="todo">Todo</option>
+                    <option value="progress">In Progress</option>
+                    <option value="done">Done</option>
+                </select>
+            </form>
+        </div>
     </div>
 </template>
 
 <script>
+import CustomButton from '../ui/CustomButton.vue';
 export default {
+    components: {
+        CustomButton
+    },
     props: {
         name: {
             type: String,
@@ -24,7 +38,7 @@ export default {
         description: {
             type: String,
             required: true,
-        }
+        },
     }
 }
 </script>
@@ -53,5 +67,21 @@ export default {
 .card-bottom {
     padding: 10px;
     text-align: left;
+}
+
+.task-options {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.task-options form {
+    text-align: right;
+}
+
+.input {
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--primary-color);
 }
 </style>

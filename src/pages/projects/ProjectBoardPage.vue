@@ -59,18 +59,26 @@ export default {
         },
 
         todoTasks() {
-            const project = this.loadProjects.find(project => project.id === this.id);  
-            return project.tasks.todo;
+            const project = this.loadProjects.find(project => project.id === this.id);
+            if (project.tasks) {
+                return project.tasks.todo;
+            }
         },
 
         inProgressTasks() {
             const project = this.loadProjects.find(project => project.id === this.id);
-            return project.tasks.progress;
+
+            if (project.tasks) {
+                return project.tasks.progress;
+            }
         },
 
         doneTasks() {
             const project = this.loadProjects.find(project => project.id === this.id);
-            return project.tasks.done;
+
+            if (project.tasks) {
+                return project.tasks.done;
+            }
         }
     },
     created() {
