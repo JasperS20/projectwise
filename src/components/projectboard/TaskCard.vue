@@ -9,8 +9,8 @@
         </div>
         <div class="task-options">
             <custom-button>Delete</custom-button>
-            <form>
-                <select class="input" name="status" id="status">
+            <form @submit.prevent="submitForm">
+                <select onchange="submitForm()" class="input" name="status" id="status">
                     <option value="todo">Todo</option>
                     <option value="progress">In Progress</option>
                     <option value="done">Done</option>
@@ -39,6 +39,11 @@ export default {
             type: String,
             required: true,
         },
+    },
+    methods: {
+        submitForm() {
+            console.log('submit form');
+        }
     }
 }
 </script>
@@ -79,7 +84,8 @@ export default {
     text-align: right;
 }
 
-.input {
+.input,
+option {
     padding: 10px;
     border-radius: 3px;
     border: 1px solid var(--primary-color);
