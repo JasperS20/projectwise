@@ -109,7 +109,7 @@ export default {
             await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}/${responseData.name}.json?auth=` + token, {
                 method: 'PATCH',
                 body: JSON.stringify(taskId)
-            })
+            });
 
         } catch(error) {
             console.log(error);
@@ -118,5 +118,39 @@ export default {
 
     async editTask(context, payload) {
         console.log(payload);
+        const token = context.rootGetters.token;
+
+        const projectId = payload.projectId;
+        const taskStatus = payload.status;
+        const previousStatus = payload.previousStatus;
+
+        const taskData = {
+            name: payload.name,
+            description: payload.description,
+            priority: payload.priority,
+            id: payload.taskId
+        }
+
+        try {
+            const update = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}/${taskData.id}.json?auth=` + token, {
+                method: 'PUT',
+                body: JSON.stringify(taskData)
+            });
+
+            if (!update.ok) {
+                console.log('Failed during updating task status!');
+            }
+
+            const remove = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${previousStatus}/${taskData.id}.json?auth=` + token, {
+                method: 'DELETE'
+            });
+
+            if (!remove.ok) {
+                console.log('Failed during removing task');
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 };

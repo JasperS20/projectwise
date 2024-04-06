@@ -6,6 +6,7 @@
                     :key="task.id"
                     :id="task.id"
                     :name="task.name"
+                    :status="'todo'"
                     :priority="task.priority"
                     :description="task.description"
                 ></task-card>

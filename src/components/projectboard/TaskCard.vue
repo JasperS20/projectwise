@@ -10,7 +10,7 @@
         <div class="task-options">
             <custom-button>Delete</custom-button>
             <form ref="form" @submit.prevent="submitForm">
-                <select class="input" name="status" id="status" @change="submitFormOnChange">
+                <select class="input" name="status" id="status" v-model="selectedStatus" @change="submitFormOnChange">
                     <option value="todo">Todo</option>
                     <option value="progress">In Progress</option>
                     <option value="done">Done</option>
@@ -48,14 +48,22 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            projectId: this.$route.params.id,
+            selectedStatus: this.status,
+        }
+    },
     methods: {
         async submitForm() {
-            console.log('submit form');
-            console.log(this.id);
             await this.$store.dispatch('projects/editTask', {
-                id: this.id,
+                projectId: this.projectId,
+                taskId: this.id,
+                status: this.selectedStatus,
+                previousStatus: this.status,
                 name: this.name,
-                status: this.status
+                description: this.description,
+                priority: this.priority
             });
         },
 
