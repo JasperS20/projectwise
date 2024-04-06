@@ -91,8 +91,6 @@ export default {
             priority: payload.priority,
         }
 
-        console.log(payload);
-
         try {
             const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}.json?auth=` + token, {
                 method: 'POST',
@@ -102,8 +100,23 @@ export default {
             if (!response.ok) {
                 console.log('error');
             }
+
+            const responseData = await response.json();
+            const taskId = {
+                id: responseData.name
+            }
+
+            await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskStatus}/${responseData.name}.json?auth=` + token, {
+                method: 'PATCH',
+                body: JSON.stringify(taskId)
+            })
+
         } catch(error) {
             console.log(error);
         }
     },
+
+    async editTask(context, payload) {
+        console.log(payload);
+    }
 };

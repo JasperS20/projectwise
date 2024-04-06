@@ -4,6 +4,7 @@
             <scrum-list title="TODO">
                 <task-card v-for="task in todoTasks" v-if="todoTasks"
                     :key="task.id"
+                    :id="task.id"
                     :name="task.name"
                     :priority="task.priority"
                     :description="task.description"

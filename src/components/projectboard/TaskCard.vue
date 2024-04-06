@@ -9,8 +9,8 @@
         </div>
         <div class="task-options">
             <custom-button>Delete</custom-button>
-            <form @submit.prevent="submitForm">
-                <select onchange="submitForm()" class="input" name="status" id="status">
+            <form ref="form" @submit.prevent="submitForm">
+                <select class="input" name="status" id="status" @change="submitFormOnChange">
                     <option value="todo">Todo</option>
                     <option value="progress">In Progress</option>
                     <option value="done">Done</option>
@@ -27,9 +27,17 @@ export default {
         CustomButton
     },
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         name: {
             type: String,
             required: true,
+        },
+        status: {
+            type: String,
+            required: true
         },
         priority: {
             type: String,
@@ -41,8 +49,18 @@ export default {
         },
     },
     methods: {
-        submitForm() {
+        async submitForm() {
             console.log('submit form');
+            console.log(this.id);
+            await this.$store.dispatch('projects/editTask', {
+                id: this.id,
+                name: this.name,
+                status: this.status
+            });
+        },
+
+        submitFormOnChange() {
+            this.submitForm();
         }
     }
 }
