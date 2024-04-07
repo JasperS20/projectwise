@@ -14,6 +14,7 @@
             </div>
             <div class="action-buttons">
                 <custom-button link :to="projectLink">View</custom-button>
+                <custom-button @click="openModal">+</custom-button>
                 <custom-button mode="outline" @click="deleteProject">Delete</custom-button>
             </div>
         </section>

@@ -8,7 +8,7 @@
             <p>{{ description }}</p>
         </div>
         <div class="task-options">
-            <custom-button>Delete</custom-button>
+            <custom-button @click="submitForm">Delete</custom-button>
             <form ref="form" @submit.prevent="submitForm">
                 <select class="input" name="status" id="status" v-model="selectedStatus" @change="submitFormOnChange">
                     <option value="todo">Todo</option>

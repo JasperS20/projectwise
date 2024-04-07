@@ -17,7 +17,9 @@
             <scrum-list title="In Progress">
                 <task-card v-for="task in inProgressTasks" v-if="inProgressTasks"
                     :key="task.id"
+                    :id="task.id"
                     :name="task.name"
+                    :status="'progress'"
                     :priority="task.priority"
                     :description="task.description"
                 ></task-card>
@@ -27,7 +29,9 @@
             <scrum-list title="Done">
                 <task-card v-for="task in doneTasks" v-if="doneTasks"
                     :key="task.id"
+                    :id="task.id"
                     :name="task.name"
+                    :status="'done'"
                     :priority="task.priority"
                     :description="task.description"
                 ></task-card>
