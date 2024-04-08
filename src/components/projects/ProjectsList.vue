@@ -50,9 +50,11 @@ export default {
         this.loadProjects();
     },
     methods: {
-        async loadProjects() {
+        async loadProjects(refresh = true) {
             try {
-                await this.$store.dispatch('projects/loadProjects');
+                await this.$store.dispatch('projects/loadProjects', {
+                    forceRefresh: refresh
+                });
             } catch (error) {
                 this.error = error.message || 'Something went wrong!';
             }
@@ -66,5 +68,6 @@ ul {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    height: fit-content;
 }
 </style>

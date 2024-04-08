@@ -88,7 +88,7 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch('projects/loadProjects');
+        this.getProjects();
     },
     methods: {
         openModal() {
@@ -98,6 +98,14 @@ export default {
         closeModal() {
             this.modalOpen = false;
         },
+
+        async getProjects() {
+            try {
+                await this.$store.dispatch('projects/loadProjects');
+            } catch (error) {
+                this.error || 'Failed during loading projects';
+            }
+        }
     },
 
 }
@@ -106,8 +114,8 @@ export default {
 <style scoped>
 .project-grid {
     position: absolute;
-    display: grid;
     width: 90%;
+    display: grid;
     margin: auto;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 1rem;
@@ -120,7 +128,21 @@ export default {
     flex-direction: column;
     border: 1px solid ;
     border-radius: 5px;
-    height: 80vh;
+    height: 100%;
+    margin-bottom: 2rem;
     background-color: var(--on-surface);
+}
+
+@media only screen and (max-width: 1800px) {
+    .project-grid {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+    }
+}
+
+@media only screen and (max-width: 1180px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

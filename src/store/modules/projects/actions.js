@@ -29,6 +29,10 @@ export default {
     },
 
     async loadProjects(context, payload) {
+        if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+            return;
+        }
+
         const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/projects.json`);
 
         const responseData = await response.json();
@@ -54,12 +58,11 @@ export default {
         }
 
         context.commit('setProjects', projects);
+        context.commit('setFetchTimestamp');
     },
 
     async deleteProject(context, payload) {
-        const userId = context.rootGetters.userId;
         const token = context.rootGetters.token;
-
         const projectId = payload.id;
 
         try {
@@ -72,8 +75,9 @@ export default {
             }
 
             context.commit('deleteProject', {
-                ...projectId
+                ...projectId,
             });
+            await context.dispatch('loadProjects', { forceRefresh: true });
         } catch (error) {
             console.log(error);
             throw error;
@@ -110,6 +114,8 @@ export default {
                 method: 'PATCH',
                 body: JSON.stringify(taskId)
             });
+
+            await context.dispatch('loadProjects', { forceRefresh: true });
 
         } catch(error) {
             console.log(error);
@@ -148,6 +154,8 @@ export default {
             if (!remove.ok) {
                 console.log('Failed during removing task');
             }
+
+            await context.dispatch('loadProjects', { forceRefresh: true });
 
         } catch (error) {
             console.log(error);

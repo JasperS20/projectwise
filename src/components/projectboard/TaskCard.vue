@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-top">
             <p class="title">{{ name }}</p>
-            <p class="priority">{{ priority }}</p>
+            <p class="priority" :style="{ backgroundColor: priorityColor }">{{ priority }}</p>
         </div>
         <div class="card-bottom">
             <p>{{ description }}</p>
@@ -47,6 +47,17 @@ export default {
             type: String,
             required: true,
         },
+    },
+    computed: {
+        priorityColor() {
+            if (this.priority === 'low') {
+                return 'yellow';
+            } else if (this.priority === 'medium') {
+                return 'orange';
+            } else {
+                return 'red'
+            }
+        }
     },
     data() {
         return {
@@ -115,5 +126,10 @@ option {
     padding: 10px;
     border-radius: 3px;
     border: 1px solid var(--primary-color);
+}
+
+.priority {
+    padding: 5px;
+    border-radius: 5px;
 }
 </style>

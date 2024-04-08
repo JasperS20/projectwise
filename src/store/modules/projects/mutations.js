@@ -10,4 +10,8 @@ export default {
     deleteProject(state, payload) {
         state.projects = state.projects.filter(project => project.name !== payload.name);
     },
+
+    setFetchTimestamp(state) {
+        state.lastFetch = new Date().getTime();
+    },
 };

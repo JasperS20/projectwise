@@ -60,6 +60,11 @@ export default {
             default: false
         }
     },
+    computed: {
+        reloadTasks() {
+            return this.$store.getters['projects/projects'];
+        }
+    },
     methods: {
         closeModal() {
             this.$emit('close');
@@ -67,7 +72,7 @@ export default {
 
         async addTask() {
             try {
-                await this.$store.dispatch('projects/addTask', {
+                this.$store.dispatch('projects/addTask', {
                     projectId: this.id,
                     name: this.name,
                     description: this.description,
