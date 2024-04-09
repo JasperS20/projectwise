@@ -1,38 +1,45 @@
 <template>
-    <div class="card" >
-        <section class="card-top">
-            <img src="../../assets/images/home-projectboard.jpg">
-        </section>
-        <section class="card-bottom">
-            <div>
-                <h4>{{ name }}</h4>
-            </div>
-            <div class="card-details">
-                <h5>{{ attendees }} Attendees</h5>
-                <h5>{{ category }}</h5>
-                <h5>{{ date }}</h5>
-            </div>
-            <div class="action-buttons">
-                <custom-button link :to="projectLink">View</custom-button>
-                <custom-button @click="openModal"><font-awesome-icon :icon="['fas', 'user-plus']" /></custom-button>
-                <custom-button mode="outline" @click="deleteProject">Delete</custom-button>
-            </div>
-        </section>
-        <!-- <add-users v-if="openModal" :is-open="openModal" @close="closeModal"></add-users> -->
+    <div>
+        <div class="card" >
+            <section class="card-top">
+                <img src="../../assets/images/home-projectboard.jpg">
+            </section>
+            <section class="card-bottom">
+                <div>
+                    <h4>{{ name }}</h4>
+                </div>
+                <div class="card-details">
+                    <h5>{{ attendees }} Attendees</h5>
+                    <h5>{{ category }}</h5>
+                    <h5>{{ date }}</h5>
+                </div>
+                <div class="action-buttons">
+                    <custom-button link :to="projectLink">View</custom-button>
+                    <custom-button @click="openModal"><font-awesome-icon :icon="['fas', 'user-plus']" /></custom-button>
+                    <custom-button mode="outline" @click="deleteProject">Delete</custom-button>
+                </div>
+            </section>
+        </div>
+        <add-users v-if="modalOpen" @close="closeModal"></add-users>
     </div>
 </template>
 
 <script>
 import CustomButton from '../ui/CustomButton.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import AddUsers from './AddUsers.vue';
 export default {
     components: {
         CustomButton,
-        FontAwesomeIcon,
         AddUsers
     },
-    props: ['id', 'name', 'projectImage', 'attendees', 'category', 'date', 'modalOpen'],
+    props: {
+        id: Number,
+        name: String,
+        projectImage: String,
+        attendees: Number,
+        category: String,
+        date: String,
+    },
     computed: {
         projectLink() {
             return this.$route.path + '/' + this.id;

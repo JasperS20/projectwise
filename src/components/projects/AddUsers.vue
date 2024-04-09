@@ -51,11 +51,11 @@ export default {
 
 <style scoped>
 .modal {
-    position: relative;
+    position: absolute;
     border: none;
     border-radius: 10px;
     padding: 2rem 4rem;
-    width: 40vw;
+    width: auto;
     height: fit-content;
     background-color: var(--on-surface);
     margin: 0 auto 2rem auto;
