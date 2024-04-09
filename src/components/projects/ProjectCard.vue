@@ -20,7 +20,7 @@
                 </div>
             </section>
         </div>
-        <add-users v-if="modalOpen" @close="closeModal"></add-users>
+        <add-users v-if="modalOpen" :is-open="modalOpen" @close="closeModal"></add-users>
     </div>
 </template>
 
@@ -39,6 +39,11 @@ export default {
         attendees: Number,
         category: String,
         date: String,
+    },
+    data() {
+        return {
+            modalOpen: false
+        }
     },
     computed: {
         projectLink() {
