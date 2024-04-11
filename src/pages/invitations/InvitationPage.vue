@@ -1,8 +1,8 @@
 <template>
     <div class="grid">
         <div class="grid-item invitations-menu">
-            <invitation-card @click="myInvites">My Invites</invitation-card>
-            <invitation-card @click="pendingInvites">Pending Invites</invitation-card>
+            <invitation-card class="invitation-card" :class="{ 'active': showMyInvites }" @click="myInvites">My Invites</invitation-card>
+            <invitation-card class="invitation-card" :class="{ 'active': !showMyInvites }" @click="pendingInvites">Pending Invites</invitation-card>
         </div>
         <div class="grid-item invitations-request">
             <my-invites v-if="showMyInvites"></my-invites>
@@ -55,5 +55,13 @@ export default {
 
 .invitations-request {
     grid-area: 1 / 4 / 6 / 13;
+}
+
+.invitation-card {
+    cursor: pointer;
+}
+
+.invitation-card.active {
+    background-color: #edd2ff;
 }
 </style>

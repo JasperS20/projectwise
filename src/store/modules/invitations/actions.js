@@ -9,8 +9,10 @@ export default {
             requestedUserId: userId,
             recipientUser: payload.recipientUser,
             isAccepted: false,
-            date: payload.date
+            date: new Date().getDate() + '/' + new Date().getMonth()
         }
+
+        console.log(inviteData);
 
         const response = await fetch(`https://projectwise-45eca-default-rtdb.firebaseio.com/invitations/sendInvites.json?auth=` + token, {
             method: 'POST',

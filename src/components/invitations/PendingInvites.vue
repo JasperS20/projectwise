@@ -4,6 +4,7 @@
             <invitation-card class="card" v-for="invitation in filteredInvitations">
                 <div class="details">
                     <h3>{{ invitation.recipientUser }}</h3>
+                    <h4 class="requested-user">{{ invitation.requestedUser }}</h4>
                 </div>
                 <div class="actions">
                     <h3 v-if="!invitation.isAccepted">Pending...</h3>
@@ -35,7 +36,9 @@ export default {
         },
 
         filteredInvitations() {
-            return this.allInvites.filter(invitation => invitation.requestedUserId === this.getUserId);
+            const invites = this.allInvites.filter(invitation => invitation.requestedUserId === this.getUserId);
+            console.log(invites);
+            return invites;
         }
     },
     created() {
@@ -60,9 +63,18 @@ export default {
 .actions {
     display: flex;
     margin: 1rem;
+    gap: 4rem;
+    align-items: center;
 }
 
 .actions h3 {
     margin-left: 1rem;
+}
+
+.requested-user {
+    background-color: var(--primary-color);
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
 }
 </style>

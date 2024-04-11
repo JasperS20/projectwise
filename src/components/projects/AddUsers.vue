@@ -33,7 +33,16 @@ export default {
         isOpen: {
             type: Boolean,
             default: false
+        },
+        projectId: {
+            type: Number,
+            required: true,
         }
+    },
+    computed: {
+        getUserMail() {
+            return this.$store.getters.email;
+        },
     },
     methods: {
         closeModal() {
@@ -43,6 +52,12 @@ export default {
         },
 
         async sendInvite() {
+            await this.$store.dispatch('invitations/sendInvite', {
+                projectId: this.projectId,
+                requestedUser: this.getUserMail,
+                recipientUser: this.user,
+            });
+            this.closeModal();
             console.log('send Invite');
         }
     }
@@ -50,16 +65,27 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal {
-    position: absolute;
+    position: relative;
     border: none;
     border-radius: 10px;
     padding: 2rem 4rem;
-    width: auto;
+    width: fit-content;
     height: fit-content;
     background-color: var(--on-surface);
-    margin: 0 auto 2rem auto;
 }
+
 
 .modal h1 {
     text-align: center;

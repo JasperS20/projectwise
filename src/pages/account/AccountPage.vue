@@ -1,21 +1,16 @@
 <template>
-    <form @submit.prevent="submitForm">
+    <div class="account-info">
         <div class="form-control">
-            <label for="email">Edit your email</label>
-            <input type="email" id="email" v-model.trim="editedEmail">
+            <label for="email">My email</label>
+            <input type="email" id="email" :value="email" readonly>
         </div>
-        <custom-button>Save Changes</custom-button>
-    </form>
+        <custom-button class="button" mode="outline">Delete Account</custom-button>
+    </div>
 </template>
 
 <script>
 import CustomButton from '@/components/ui/CustomButton.vue';
 export default {
-    data() {
-        return {
-            editedEmail: '',
-        }
-    },
     components: {
         CustomButton
     },
@@ -39,8 +34,17 @@ export default {
 </script>
 
 <style scoped>
-button {
+.account-info {
+    text-align: center;
+}
+
+.form-control {
+    width: max-content;
+    margin: auto;
+}
+
+.button {
     margin-top: 2rem;
-    width: 100%;
+    width: 400px;
 }
 </style>

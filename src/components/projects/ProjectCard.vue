@@ -15,12 +15,12 @@
                 </div>
                 <div class="action-buttons">
                     <custom-button link :to="projectLink">View</custom-button>
-                    <custom-button @click="openModal"><font-awesome-icon :icon="['fas', 'user-plus']" /></custom-button>
+                    <custom-button mode="outline" @click="openModal">Invite</custom-button>
                     <custom-button mode="outline" @click="deleteProject">Delete</custom-button>
                 </div>
             </section>
         </div>
-        <add-users v-if="modalOpen" :is-open="modalOpen" @close="closeModal"></add-users>
+        <add-users v-if="modalOpen" :projectId="this.id" :is-open="modalOpen" @close="closeModal"></add-users>
     </div>
 </template>
 
@@ -83,6 +83,7 @@ img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 200px;
+    width: 100%;
 }
 
 .card-bottom {
