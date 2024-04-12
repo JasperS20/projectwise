@@ -35,3 +35,9 @@ form {
     justify-content: space-between;
     margin-top: 1rem;
 }
+
+.error-text {
+    text-align: left;
+    margin-top: 1.5rem;
+    color: var(--error-color);
+}

@@ -16,6 +16,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" v-model.trim="password">
             </div>
+            <p class="error-text" v-if="!formIsValid">Please enter a valid Email and Password!</p>
             <div class="form-actions">
                 <custom-button link mode="flat" @click="switchAuthMode">{{ switchModeText }}</custom-button>
                 <custom-button>{{ submitButtonText }}</custom-button>
@@ -80,6 +81,7 @@ export default {
                 const redirectUrl = '/' + (this.$route.query.redirect || 'home');
                 this.$router.replace(redirectUrl);
             } catch (error) {
+                this.formIsValid = false;
                 this.error = error.message || 'Failed to authenticate!'
             }
         },

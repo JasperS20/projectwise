@@ -170,5 +170,26 @@ export default {
     autoLogout(context) {
         context.dispatch('logout');
         context.commit('setAutoLogout');
+    },
+
+    async deleteAccount(context, payload) {
+        const formData = {
+            idToken: payload.idToken
+        }
+
+        try {
+            const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDT8Ckl6IPDgO1CQBKEXcJYKNt_1p7AXfw`, {
+            method: 'POST', 
+            body: JSON.stringify(formData)
+            });
+
+            console.log(response);
+
+            if (!response.ok) {
+                console.log('ERROR while deleting account');
+            }
+        } catch(error) {
+            console.log(error || 'Failing deleting account');
+        }
     }
 }

@@ -4,7 +4,9 @@
             <label for="email">My email</label>
             <input type="email" id="email" :value="email" readonly>
         </div>
-        <custom-button class="button" mode="outline">Delete Account</custom-button>
+        <form @submit="submitForm">
+            <custom-button class="button" mode="outline">Delete Account</custom-button>
+        </form>
     </div>
 </template>
 
@@ -18,16 +20,21 @@ export default {
         email() {
             return this.$store.getters.email;
         },
+
+        idToken() {
+            return this.$store.getters.token;
+        }
     },
     methods: {
         async submitForm() {
             try {
-                await this.$store.dispatch('editUserEmail', {
-                    email: this.editedEmail,
+                await this.$store.dispatch('deleteAccount', {
+                    idToken: this.idToken,
                 })
             } catch (error) {
                 this.error = error.message || 'Failed to authenticate!';
             }
+            this.$router.replace('/auth')
         }
     }
 }
