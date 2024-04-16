@@ -5,25 +5,11 @@
                 <img class="logo" src="../../assets/images/logo.svg" alt="navigation-logo">
             </router-link>
             <div v-if="isAuthenticated" class="nav-links">
-                <button class="hamburger-menu-button" @click="toggleMenu">
+                <button class="hamburger-menu-button" :class="{ 'rotate': isMenuOpen }" @click="toggleMenu">
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
                 </button>
-                <ul class="hamburger-menu" v-if="isMenuOpen">
-                    <li>
-                        <router-link to="/projects">My Projects</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/invitations">Invatations</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/account">My Account</router-link>
-                    </li>
-                    <li>
-                        <custom-button @click="logout">Logout</custom-button>
-                    </li>
-                </ul>
                 <ul class="default-menu">
                     <li>
                         <router-link to="/projects">My Projects</router-link>
@@ -47,6 +33,22 @@
                 </ul>
             </div>
         </nav>
+        <div>
+            <ul class="hamburger-menu" v-if="isMenuOpen">
+                <li>
+                    <router-link to="/projects">My Projects</router-link>
+                </li>
+                <li>
+                    <router-link to="/invitations">Invatations</router-link>
+                </li>
+                <li>
+                    <router-link to="/account">My Account</router-link>
+                </li>
+                <li>
+                    <custom-button @click="logout">Logout</custom-button>
+                </li>
+            </ul>
+        </div>
     </header>
 </template>
 
@@ -87,7 +89,6 @@ export default {
 
 <style scoped>
 header {
-    display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -158,9 +159,9 @@ header a {
         border: none;
     }
 
-    nav {
-        display:  flex;
-        flex-direction: column;
+    .rotate {
+        transition: 0.2s all ease-in-out;
+        transform: rotate(90deg);
     }
 
     .hamburger-menu {
@@ -170,8 +171,21 @@ header a {
         text-align: left;
     }
 
-    .hamburger-menu li a{
+    .hamburger-menu li {
+        background-color: var(--on-surface);
+        border-radius: 5px;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 1rem;
+        padding: 10px;
         text-align: left;
+        transition: 0.2s ease-in-out;
+    }
+
+    .hamburger-menu li:hover {
+        transition: 0.2s ease-in-out;
+        color: white;
+        background-color: var(--primary-color);
     }
 
     .default-menu {
