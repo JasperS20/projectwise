@@ -80,4 +80,10 @@ export default {
 .actions h3 {
     margin-left: 1rem;
 }
+
+@media only screen and (max-width: 630px) {
+    .card {
+        flex-direction: column;
+    }
+}
 </style>

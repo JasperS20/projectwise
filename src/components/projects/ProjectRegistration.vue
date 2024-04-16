@@ -111,7 +111,7 @@ export default {
     border: none;
     border-radius: 10px;
     padding: 2rem 4rem;
-    width: 40vw;
+    width: 100%;
     height: fit-content;
     background-color: var(--on-surface);
     margin: 0 auto 2rem auto;
@@ -140,5 +140,15 @@ export default {
 .close-btn {
     margin-top: 2rem;
     justify-content: end;
+}
+
+@media only screen and (max-width: 600px) {
+    .modal {
+        padding: 1rem;
+    }
+    
+    .form-control {
+        width: 100px;
+    }
 }
 </style>

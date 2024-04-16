@@ -19,3 +19,18 @@
         </div>
     </section>
 </template>
+
+<style scoped>
+@media only screen and (max-width: 630px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .projects,
+    .invitations,
+    .account {
+        grid-area: auto;
+    }
+}
+</style>

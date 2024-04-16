@@ -64,4 +64,20 @@ export default {
 .invitation-card.active {
     background-color: #edd2ff;
 }
+
+@media only screen and (max-width: 867px) {
+    .grid {
+        display: block; /* Change display property to block to stack items vertically */
+    }
+
+    .grid-item {
+        width: 100%; /* Ensure each grid item takes up full width */
+        margin-bottom: 2rem; /* Add margin between grid items */
+    }
+
+    .invitations-menu,
+    .invitations-request {
+        grid-area: auto; /* Remove grid-area definitions */
+    }
+}
 </style>

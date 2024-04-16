@@ -4,11 +4,10 @@
             <invitation-card class="card" v-for="invitation in filteredInvitations">
                 <div class="details">
                     <h3>{{ invitation.recipientUser }}</h3>
-                    <h4 class="requested-user">{{ invitation.requestedUser }}</h4>
                 </div>
                 <div class="actions">
-                    <h3 v-if="!invitation.isAccepted">Pending...</h3>
-                    <h3 v-else>Accepted</h3>
+                    <h3 class="pending" v-if="!invitation.isAccepted">Pending...</h3>
+                    <h3 class="accepted" v-else>Accepted</h3>
                 </div>
             </invitation-card>
         </ul>
@@ -76,5 +75,23 @@ export default {
     padding: 10px;
     color: white;
     border-radius: 10px;
+}
+
+.pending {
+    background-color: orange;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.accepted {
+    padding: 1rem;
+    background-color: var(--succes-color);
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 630px) {
+    .card {
+        flex-direction: column;
+    }
 }
 </style>

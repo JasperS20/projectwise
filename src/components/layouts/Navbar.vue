@@ -5,7 +5,26 @@
                 <img class="logo" src="../../assets/images/logo.svg" alt="navigation-logo">
             </router-link>
             <div v-if="isAuthenticated" class="nav-links">
-                <ul>
+                <button class="hamburger-menu-button" @click="toggleMenu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </button>
+                <ul class="hamburger-menu" v-if="isMenuOpen">
+                    <li>
+                        <router-link to="/projects">My Projects</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/invitations">Invatations</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/account">My Account</router-link>
+                    </li>
+                    <li>
+                        <custom-button @click="logout">Logout</custom-button>
+                    </li>
+                </ul>
+                <ul class="default-menu">
                     <li>
                         <router-link to="/projects">My Projects</router-link>
                     </li>
@@ -37,6 +56,11 @@ export default {
     components: {
         CustomButton
     },
+    data() {
+        return {
+            isMenuOpen: false
+        }
+    },
     computed: {
         isAuthenticated() {
             return this.$store.getters.isAuthenticated;
@@ -49,6 +73,13 @@ export default {
         logout() {
             this.$store.dispatch('logout');
             this.$router.replace('/home');
+        },
+        toggleMenu() {
+            if (this.isMenuOpen === false) {
+                this.isMenuOpen = true;
+            } else {
+                this.isMenuOpen = false;
+            }
         }
     }
 }
@@ -104,5 +135,47 @@ header a {
     transition: 0.4s ease-in-out;
 }
 
+.hamburger-menu-button {
+    visibility: hidden;
+}
 
+.hamburger-menu {
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+@media only screen and (max-width: 660px) {
+    .hamburger-menu-button {
+        visibility: visible;
+        border: none;
+    }
+
+    nav {
+        display:  flex;
+        flex-direction: column;
+    }
+
+    .hamburger-menu {
+        visibility: visible;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .hamburger-menu li a{
+        text-align: left;
+    }
+
+    .default-menu {
+        display: none;
+    }
+}
 </style>
